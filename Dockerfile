@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-xml \
     php-zip \
     # php-php-dom \ 
-    php-gd \
+    # php-gd \
     php-intl \
     php-json \
     php-mbstring \
