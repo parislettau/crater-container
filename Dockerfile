@@ -1,84 +1,40 @@
-# Use latest offical ubuntu image
-FROM ubuntu:latest
+FROM php:8.1-fpm
 
-# Set timezone environment variable
-ENV TZ=Europe/Berlin
+# Arguments defined in docker-compose.yml
+# ARG user
+# ARG uid
 
-# Set geographic area using above variable
-# This is necessary, otherwise building the image doesn't work
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Remove annoying messages during package installation
-ARG DEBIAN_FRONTEND=noninteractive
-
-# Install packages: web server Apache, PHP and extensions
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    apache2 \
-    apache2-utils \
-    ca-certificates \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
     git \
-    php \
-    libapache2-mod-php \
-    php-bcmath \
-    php-ctype \
-    php-curl \
-    php-dom \
-    # php-filter \
-    php-iconv \
-    php-json \
-    php-mbstring \
-    # php-openssl \
-    php-pdo \
-    # php-session \
-    php-tokenizer \
-    php-xml \
-    php-zip \
-    # php-php-dom \ 
-    # php-gd \
-    php-intl \
-    php-json \
-    php-mbstring \
-    php-xml \
-    php-zip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    libzip-dev \
+    libmagickwand-dev \
+    mariadb-client
 
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Remove default content (existing index.html)
-RUN rm /var/www/html/*
+RUN pecl install imagick \
+    && docker-php-ext-enable imagick
 
-# Clone the repository from github https://github.com/crater-invoice/crater (opens new window).
-# RUN git clone https://github.com/crater-invoice/crater.git /var/www/html
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
 
-# Install Yarn globally if you haven't installed that already , for more information please refer this link(opens new window)
-# RUN apt-get update
-# RUN apt-get install yarn
+# # Get latest Composer
+# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# # After installing Yarn globally , run yarn command inside your cloned folder, it will download all the required dependencies.
-# RUN cd /var/www/html &&\
-#     yarn && \
-#     # Run yarn dev to generate the public files (do yarn build if you wish to use it on production).
-#     yarn dev
-# # Install composer to your system and run composer install inside your cloned folder to install all laravel/php dependencies.
-# COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-# RUN composer install && \
-#     # Create an .env file by running the following command: cp .env.example .env. Or alternately you can just copy .env.example file to the same folder and re-name it to .env.
-#     cp .env.example .env  && \
-#     # run command: php artisan key:generate to generate a unique application key.
-#     php artisan key:generate
+# # Create system user to run Composer and Artisan Commands
+# RUN useradd -G www-data,root -u $uid -d /home/$user $user
+# RUN mkdir -p /home/$user/.composer && \
+#     chown -R $user:$user /home/$user
 
-# Open the link to the domain in the browser (Example: https://demo.craterapp.com) and complete the installation wizard as directed.
+# Set working directory
+WORKDIR /var/www/html
 
-# Copy virtual host configuration from current path onto existing 000-default.conf
-COPY default.conf /etc/apache2/sites-available/000-default.conf
-
-# Fix files and directories ownership
-# RUN chown -R www-data:www-data /var/www/html/
-
-# Activate Apache modules headers & rewrite
-RUN a2enmod headers rewrite
-
-# Tell container to listen to port 80 at runtime
-EXPOSE 80
-
-# Start Apache web server
-CMD [ "/usr/sbin/apache2ctl", "-DFOREGROUND" ]
+# USER $user
