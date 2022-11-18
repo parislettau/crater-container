@@ -23,17 +23,17 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-ctype \
     php-curl \
     php-dom \
-    php-filter \
+    # php-filter \
     php-iconv \
     php-json \
     php-mbstring \
-    php-openssl \
+    # php-openssl \
     php-pdo \
     php-session \
     php-tokenizer \
     php-xml \
     php-zip \
-    php-php-dom \ 
+    # php-php-dom \ 
     php-gd \
     php-intl \
     php-json \
