@@ -37,6 +37,7 @@ RUN rm /var/www/html/*
 RUN git clone https://github.com/crater-invoice/crater.git /var/www/html
 
 # Install Yarn globally if you haven't installed that already , for more information please refer this link(opens new window)
+RUN apt-get update
 RUN apt-get install nodejs npm
 RUN npm install -g yarn
 
