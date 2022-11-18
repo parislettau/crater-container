@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-mbstring \
     # php-openssl \
     php-pdo \
-    php-session \
+    # php-session \
     php-tokenizer \
     php-xml \
     php-zip \
