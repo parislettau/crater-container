@@ -37,7 +37,7 @@ RUN rm /var/www/html/*
 RUN git clone https://github.com/crater-invoice/crater.git /var/www/html
 
 # Install Yarn globally if you haven't installed that already , for more information please refer this link(opens new window)
-# FROM node:16-alpine
+FROM node:16-alpine
 RUN npm install -g yarn
 
 # After installing Yarn globally , run yarn command inside your cloned folder, it will download all the required dependencies.
