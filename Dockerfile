@@ -29,6 +29,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-zip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+
+# Remove default content (existing index.html)
+RUN rm /var/www/html/*
+
 # Clone the repository from github https://github.com/crater-invoice/crater (opens new window).
 RUN git clone https://github.com/crater-invoice/crater.git /var/www/html
 
@@ -53,9 +57,6 @@ RUN composer install && \
 
 # Copy virtual host configuration from current path onto existing 000-default.conf
 COPY default.conf /etc/apache2/sites-available/000-default.conf
-
-# Remove default content (existing index.html)
-# RUN rm /var/www/html/*
 
 # Fix files and directories ownership
 # RUN chown -R www-data:www-data /var/www/html/
