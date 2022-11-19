@@ -31,6 +31,18 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+
+    php-curl \
+    php-dom \
+    php-gd \
+    php-bcmath \
+    php-intl \
+    php-json \
+    php-mbstring \
+    # php-pcntl \
+    php-pdo-mysql \
+    php-exif && \
+    php-zip && \ 
     git \
     curl \
     libpng-dev \
@@ -47,17 +59,6 @@ RUN apt-get update && apt-get install -y \
     git \
     php \
     libapache2-mod-php \
-    php-curl \
-    php-dom \
-    php-gd \
-    php-bcmath \
-    php-intl \
-    php-json \
-    php-mbstring \
-    # php-pcntl \
-    php-pdo-mysql \
-    php-exif && \
-    php-zip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Clear cache
