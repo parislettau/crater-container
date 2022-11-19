@@ -41,7 +41,7 @@ RUN apt-get update && apt-get install -y \
     # php-pcntl \
     php-pdo-mysql \
     php-exif && \
-    php-zip && \ 
+    # php-zip && \ 
     git \
     curl \
     libpng-dev \
