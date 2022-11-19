@@ -55,7 +55,6 @@ RUN apt-get update && apt-get install -y \
     apache2 \
     apache2-utils \
     ca-certificates \
-    git \
     php \
     libapache2-mod-php \
     apt-get clean && rm -rf /var/lib/apt/lists/*
