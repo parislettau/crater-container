@@ -1,6 +1,5 @@
 # Use latest offical ubuntu image
 FROM ubuntu:latest
-FROM php:8.1-fpm
 
 # Set timezone environment variable
 ENV TZ=Australia/Melbourne
@@ -28,10 +27,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-mbstring \
     php-xml \
     php-zip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
     git \
     curl \
     libpng-dev \
@@ -42,6 +38,10 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libmagickwand-dev \
     mariadb-client
+
+# Install system dependencies
+# RUN apt-get update && apt-get install -y \
+
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
