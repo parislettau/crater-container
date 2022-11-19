@@ -29,6 +29,27 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-zip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    libzip-dev \
+    libmagickwand-dev \
+    mariadb-client
+
+# Install PHP extensions
+RUN apt-get update && apt-get install -y \
+    php-mbstring \
+    php-mysql \
+    php-bcmath 
+
+# docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd 
+
 # Copy virtual host configuration from current path onto existing 000-default.conf
 COPY default.conf /etc/apache2/sites-available/000-default.conf
 
