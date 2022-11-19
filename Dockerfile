@@ -40,6 +40,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev \
     libmagickwand-dev \
+    sqlite3 \
+    libsqlite3-dev \
     mariadb-client
 
 # Install PHP extensions
