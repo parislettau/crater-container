@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
+# RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
 
 # Copy virtual host configuration from current path onto existing 000-default.conf
 COPY default.conf /etc/apache2/sites-available/000-default.conf
