@@ -54,8 +54,8 @@ RUN apt-get update && apt-get install -y \
     php-intl \
     php-json \
     php-mbstring \
-    php-pdo-mysql \
     # php-pcntl \
+    php-pdo-mysql \
     php-exif && \
     php-zip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
