@@ -26,9 +26,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-json \
     php-mbstring \
     php-xml \
-    php-zip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    git \
+    # git \
     curl \
     libpng-dev \
     libonig-dev \
@@ -37,7 +35,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     unzip \
     libzip-dev \
     libmagickwand-dev \
-    mariadb-client
+    mariadb-client \
+    php-zip && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* 
+
 
 # Install system dependencies
 # RUN apt-get update && apt-get install -y \
