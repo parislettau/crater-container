@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     php-json \
     php-mbstring \
     php-xml \
+    php-sqlite3 \
     php-zip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
