@@ -50,10 +50,13 @@ RUN apt-get update && apt-get install -y \
     php-curl \
     php-dom \
     php-gd \
+    php-bcmath \
     php-intl \
     php-json \
     php-mbstring \
-    php-xml \
+    php-pdo_mysql \
+    php-pcntl \
+    php-exif && \
     php-zip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -61,7 +64,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
+# RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
 
 # Remove default content (existing index.html)
 RUN rm /var/www/html/*
