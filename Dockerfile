@@ -56,20 +56,14 @@ RUN apt-get update && apt-get install -y \
 # Copy virtual host configuration from current path onto existing 000-default.conf
 COPY default.conf /etc/apache2/sites-available/000-default.conf
 
-# Copy cron configuration file
-COPY crontab /etc/cron.d/crater-cron
-
 # Remove default content (existing index.html)
 RUN rm /var/www/html/*
 
-# Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/crater-cron
+# Clone the Kirby Starterkit
+# RUN git clone --depth 1 https://github.com/parislettau/mass.memoreview-docker.git /var/www/html
 
 # Fix files and directories ownership
 RUN chown -R www-data:www-data /var/www/html/
-
-# Apply cron job
-RUN crontab /etc/cron.d/crater-cron
 
 # Activate Apache modules headers & rewrite
 RUN a2enmod headers rewrite
